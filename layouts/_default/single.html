@@ -12,10 +12,17 @@
                  style="background-image: url('{{ $featured_image | relLangURL}}')">
                 <div class="post-title">
                     {{ .Title }}
+                    {{ if .Params.description }}
+                    <div class="post-subtitle">
+                        {{ .Params.description }}
+                    </div>
+                    {{ end }}
                     <div class="post-meta">
+                        {{ if .Params.date}}
                         <time itemprop="datePublished">
                             {{ .PublishDate.Format "2006-01-02 15:04" }}
                         </time>
+                        {{ end }}
 
                         {{ if gt .Params.categories 0 }}
                             <i class="material-icons" style="">folder</i>
@@ -39,10 +46,11 @@
             <div class="post-body-wrapper">
                 <div class="post-body">
                     {{.Content}}
+                    {{ if not .Lastmod.IsZero }}
                     <HR width="100%" id="EOF">
                     <p style="color:#777;">Last modified on {{ .Page.Lastmod.Format "2006-01-02" }}</p>
+                    {{ end }}
                 </div>
-                
             </div>
             
             
